@@ -487,6 +487,12 @@ namespace Gtk.NodeGraph
 
         private void ConnectSocketsInternal(NodeSocket source)
         {
+            if (source.Parent == this.Parent)
+            {
+                Trace.WriteLine($"{this.Parent} cannot connect to itself.");
+                return;
+            }
+
             if (source._io != NodeSocketIO.Source)
             {
                 Trace.WriteLine($"Node Socket {source._id} not in source mode.");
